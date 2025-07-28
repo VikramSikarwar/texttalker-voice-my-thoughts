@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Collecting Data</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            background-image: url('./logo.png'); 
+            background-size: 150px;
+            background-position: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 70%;
+            height: auto;
+            
+            background-color:#a64dff ;
+
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #6419af, #3c0474);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .card {
+            
+            background-color: #cc99ff;
+
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+        .form-group button {
+            padding: 12px 20px;
+            background-color: #380565;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .form-group button:hover {
+         background-color: #78399a;
+  
+
+}
+        footer {
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            color: #fff;
+            padding: 10px 0;
+            animation: slideInUp 1s ease;
+            right: 0%;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer p {
+            margin: 0;
+        }
+        .navbar-custom {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            background-color: #52077a; 
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  display: none;
+}
+
+.alert i {
+  margin-right: 10px;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar-custom">
+        <a class="navbar-brand" href="./main page.html" style="color: #fff;"><i class="fas fa-home"></i> Home</a>
+    </nav>
+
+    <div class="container">
+        <form id="contactForm">
+            <h2>Feedback Form</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="feedback">Feedback:</label>
+                        <textarea class="form-control" id="feedback" rows="3" placeholder="Enter your feedback"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit"><i class="fas fa-paper-plane" ></i>Submit Feedback</button>
+                  </div>
+
+                 
+            </div>
+        </form>
+        <div id="confirmation" class="alert">
+            <i class="fas fa-check-circle"></i>Thank you for your feedback!
+          </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 TextTalker. All rights reserved.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-database.js"></script>
+
+    <script>
+        //  Firebase configuration
+        let firebaseConfig = {
+            apiKey: "AIzaSyAxAxPh2pSaqNem3TZKi1k6wznZq2OxKxM",
+            authDomain: "texttalker-353f5.firebaseapp.com",
+            projectId: "texttalker-353f5",
+            storageBucket: "texttalker-353f5.appspot.com",
+            messagingSenderId: "231517737191",
+            appId: "1:231517737191:web:f0461729f55689324e9242",
+            measurementId: "G-D99HQNS2FP"
+        };
+
+        
+        firebase.initializeApp(firebaseConfig);
+
+        
+        let messagesRef = firebase.database().ref('Collected Data');
+
+        
+        document.getElementById('contactForm').addEventListener('submit', submitForm);
+        
+
+        function submitForm(e) {
+            e.preventDefault();
+            confirmation.style.display = 'block';
+            
+
+            // Get values from the form
+            let name = getInputVal('name');
+            let email = getInputVal('email');
+            let feedback = getInputVal('feedback');
+
+            // Save message to Firebase
+            saveMessage(name, email, feedback);
+
+            // Reset the form after submission
+            document.getElementById('contactForm').reset();
+            setTimeout(function() {
+              confirmation.style.display = 'none';
+              form.reset();
+            }, 3000);
+        }
+        
+
+        function getInputVal(id) {
+            return document.getElementById(id).value;
+
+            
+        }
+        
+        
+        
+        
+
+        // Function to save message to Firebase
+        function saveMessage(name, email, feedback) {
+            let newMessageRef = messagesRef.push();
+            newMessageRef.set({
+                name: name,
+                email: email,
+                feedback: feedback
+            });
+        
+        }
+        
+
+
+    
+    </script>
+   
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"></script>
+
+</body>
+</html>

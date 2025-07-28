@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TextTalker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="./logo-modified.png">
+
+
+<style>
+ 
+
+
+*{
+    padding: 0;
+    margin:0;
+    font-family: 'Poppins';
+    box-sizing: border-box;
+}
+.container {
+            position: absolute;
+            left: 8px; 
+            top: 55.5%; 
+            right: 45%;
+            bottom: -40%;
+            transform: translateY(-50%); 
+            background-color: 	 #fff; 
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+            padding: 20px; 
+                     
+        }
+
+body{
+    width: 100%;
+    height: 100vh;
+    background-color:#cc99ff ;
+}
+
+
+.chat{
+    display: flex;
+    gap: 20px;
+    padding: 25px;
+    color:"black";
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.chat img{
+    width: 35px;
+    height: 35px;
+}
+
+.response{
+    background-color: #a64dff;
+}
+
+.messagebar{
+    position: fixed;
+    bottom: 0;
+    height: 5rem;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+
+.messagebar .bar-wrapper{
+    background-color:#a64dff ;
+    border-radius: 5px;
+    width: 50vw;
+    padding: 10px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.bar-wrapper input{
+    width: 90%;
+    padding: 5px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: none;
+    color: #ffff;
+}
+
+.bar-wrapper input::placeholder{
+    color: #ffff;
+}
+
+.messagebar button{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border:none;
+    color:#fff;
+    cursor: pointer;
+}
+
+.message-box{
+    height: calc(100vh - 5rem);
+    overflow-y: auto;
+    
+    
+}
+
+
+  /*nav*/
+ 
+.top-bar {
+      padding: 20px;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      background-color: #52077a; 
+    }
+    .ai-logo {
+      width: 50px;
+      height: auto;
+      border-radius: 50%;
+    }
+    
+      
+    
+    .ai-assistance {
+      margin-left: 20px;
+      font-size: 2.5em; 
+      color: #eeedf4; 
+      margin-top: 10px; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, 'Times New Roman', Times, serif;
+      
+    }
+     /*to do*/
+  
+
+.containers {
+            position: absolute;
+            right: 8px; 
+            top: 40%; 
+            left: 110%;
+            bottom: -40%;
+            transform: translateY(-50%); 
+            background-color: 	 #fff; 
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+            padding: 20px; 
+            width:100%;
+            height: 600px;
+            max-width: 540px;
+            margin: 100px auto 100px ;
+           padding: 40px 30px 70px;
+           border-radius: 10px;
+           border: 10px solid #9c1eeb;
+        }
+
+.todo-app h2{
+    color: #002765;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.todo-app h2 img{
+    width: 50px;
+    margin-left: 10px;
+}
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #edeef0;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom:25px ;
+}
+
+input{
+    flex:1;
+    border:none;
+    outline:none;
+    background: transparent;
+    padding: 10px;
+    font-weight: 14px;
+}
+
+
+
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    
+}
+
+ul li::before{
+   content: '';
+   position: absolute;
+   height: 28px;
+   width: 28px; 
+   border-radius: 50%;
+   background-image: url(./circles.png);
+   background-size: cover;
+   background-position: center;
+   top: 12px;
+   left:8px;
+}
+
+ul li.checked{
+    color:#555;
+    text-decoration:line-through;
+
+}
+ul li.checked::before{
+    background-image: url(./right.png);
+}
+ul li span{
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    color: #555;
+    line-height: 40px;
+    text-align:center;
+    border-radius: 50%;
+    
+
+}
+ul li span:hover{
+    background: #edeef0;
+}
+
+body, ol {
+  margin: 0;
+  padding: 0;
+}
+.icon-bar {
+  width: 100%;
+  
+  overflow: auto;
+}
+
+.icon-bar a {
+  float: right;
+  width: 18%;
+  text-align: center;
+  padding: 12px 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 36px;
+  
+}
+
+.icon-bar a:hover {
+  color: #131111;
+ 
+  
+}
+ 
+</style>
+</head>
+<body>
+  <div class="top-bar">
+    <img src="./logo1 copy.png" alt="AI Logo" class="ai-logo">
+<h1 class="ai-assistance">TextTalker</h1>
+
+<div class="icon-bar">
+  <a href="./newlogin.html" onclick="logout()" title="Logout"><i class="fas fa-sign-out-alt" ></i></a>
+  <a href="./TextTalkerFeedback.html" title="Your Feedback"><span></span><i class="material-icons" style="font-size: 36px;">feedback</i></a>
+  <a href="./newvideo.html" title="Video references"><span></span><i class="fas fa-video"></i></a>
+  <a href="./about.html" title="About TextTalker"><span></span><i class="fas fa-info-circle"></i></a>
+</div>
+</div>
+  <div class="container">
+    <div class="chatbox-wrapper">
+        <div class="message-box">
+            <div class="chat response">
+                <img src="./Images/logo1.png">
+                <span> Hello there friend!<br>
+                    How can i help you today?
+                </span>
+            </div>
+        </div>
+        
+        <div class="messagebar">
+          
+            <div class="bar-wrapper">
+            
+                <input type="text" class="message-bar" placeholder="Type your message...">
+                <button class="send-btn"><i class="material-icons" style="font-size:25px;color:rgb(243, 241, 241)">send</i>
+                </button>
+                <button class="toggle-audio-btn">🔊</button>
+                <button class="text-to-speech-btn"></button>
+                <button class="speech-to-text-btn"><i class='fas fa-microphone-alt' style='font-size:24px'></i></button> 
+              </div>
+              
+              
+              <div class="message-box">
+              </div>
+                
+              
+            </div>
+            <div class="containers">
+              
+                  <h2> To-Search List <img src ="./icon1.png" width="100" height="100"></h2>
+                  <div class="row">
+                      <input type="text" id="input-box" placeholder="Please add your text here!">
+                      <button onclick="addTask()" style=" border:none;
+                      outline:none;
+                      padding: 16px 50px;
+                      background: #ff5945;
+                      color: #fff;
+                      font-size: 16px;
+                      cursor: pointer;
+                      border-radius:40px;"> Add</button>
+                  </div>
+                  <ul id="list-container">
+                  
+                  </ul>
+              
+          </div>
+         
+      </div>
+  </div>
+        </div>
+        
+    </div>
+</div>
+<script>
+const messageBar = document.querySelector(".message-bar");
+const sendBtn = document.querySelector(".send-btn");
+const textToSpeechBtn = document.querySelector(".text-to-speech-btn");
+const speechToTextBtn = document.querySelector(".speech-to-text-btn");
+const messageBox = document.querySelector(".message-box");
+
+const API_URL = "https://api.openai.com/v1/chat/completions";
+const API_KEY = "sk-proj-8bRaI8YuW3YaoR8KCdwJT3BlbkFJro68d4qlXNwUJNN68abv";
+
+// Function to speak text using Web Speech API
+function speakText(text) {
+  const speechSynthesis = window.speechSynthesis;
+  const speechText = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(speechText);
+}
+
+// Function to process user's voice input
+function processVoiceInput() {
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.start();
+  recognition.onresult = function(event) {
+    const userVoiceMessage = event.results[0][0].transcript;
+    messageBar.value = userVoiceMessage;
+    sendMessage();
+  };
+}
+
+// Function to send message to chatbot
+function sendMessage() {
+  const userTypedMessage = messageBar.value;
+  messageBar.value = "";
+
+  let message =
+    `<div class="chat message">
+      <img src="./Images/icon.png">
+      <span>${userTypedMessage}</span>
+    </div>`;
+
+  messageBox.insertAdjacentHTML("beforeend", message);
+
+  setTimeout(() => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [{
+          role: "user",
+          content: userTypedMessage,
+        }],
+      }),
+    };
+
+    fetch(API_URL, requestOptions)
+      .then(res => res.json())
+      .then(data => {
+        const chatBotResponse = data.choices[0].message.content;
+        const response =
+          `<div class="chat response">
+            <img src="./Images/logo1.png">
+            <span>${chatBotResponse}</span>
+          </div>`;
+        messageBox.insertAdjacentHTML("beforeend", response);
+        speakText(chatBotResponse); // Speak the chat bot response
+      })
+      .catch((error) => {
+        const errorMessage = "Oops!! An error occurred!";
+        const errorResponse =
+          `<div class="chat response">
+            <img src="./Images/logo1.png">
+            <span>${errorMessage}</span>
+          </div>`;
+        messageBox.insertAdjacentHTML("beforeend", errorResponse);
+        speakText(errorMessage); // Speak the error message
+      });
+  }, 100);
+}
+
+sendBtn.onclick = sendMessage;
+textToSpeechBtn.onclick = function() {
+  const lastChatResponse = document.querySelector(".message-box .response:last-child span");
+  if (lastChatResponse) {
+    speakText(lastChatResponse.innerText);
+  }
+};
+speechToTextBtn.onclick = processVoiceInput;
+
+
+</script>
+<script>
+  const toggleAudioBtn = document.querySelector(".toggle-audio-btn");
+
+let isAudioMuted = false;
+
+toggleAudioBtn.onclick = function() {
+  const speechSynthesis = window.speechSynthesis;
+  if (isAudioMuted) {
+    isAudioMuted = false;
+    toggleAudioBtn.innerText = "🔊";
+    speechSynthesis.resume(); // Resume speech synthesis
+  } else {
+    isAudioMuted = true;
+    toggleAudioBtn.innerText = "🔇 ";
+    speechSynthesis.pause(); // Pause speech synthesis
+  }
+};
+
+</script>
+<script>
+  const inputBox = document.getElementById("input-box");
+const listContainer = document.getElementById("list-container");
+function addTask(){
+    if(inputBox.value === ''){
+        alert("You must write something!");
+    }
+    else{
+        let li = document.createElement("li");
+        li.innerHTML = inputBox.value;
+        listContainer.appendChild(li);
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
+    }
+    inputBox.value = " ";
+    saveData();
+}
+
+
+listContainer.addEventListener("click", function(e){
+    if(e.target.tagName === "LI"){
+        e.target.classList.toggle("checked");
+        saveData();
+    }
+    else if(e.target.tagName === "SPAN"){
+        e.target.parentElement.remove();
+        saveData();
+    }
+}, false);
+
+
+function saveData(){
+    localStorage.setItem("data", listContainer.innerHTML);
+}
+
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("data");
+}
+showTask();
+
+
+ </script>
+ <script>
+  
+    function logout() {
+        // Perform logout actions 
+        alert("Logging out...");
+        // Redirect to the logout page or perform any other necessary actions
+    }
+</script>
+
+ 
+
+</body>
+</html>
